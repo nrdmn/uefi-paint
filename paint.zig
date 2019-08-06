@@ -9,7 +9,7 @@ pub fn main() void {
     const boot_services = uefi.system_table.boot_services.?;
     var pointer: *AbsolutePointerProtocol = undefined;
     var graphics: *GraphicsOutputProtocol = undefined;
-    var pointer_state = AbsolutePointerState.init();
+    var pointer_state = AbsolutePointerState{};
     var selected: u8 = 0;
     const colors = [16]GraphicsOutputBltPixel{
         GraphicsOutputBltPixel{ .blue = 0x00, .green = 0x00, .red = 0x00, .reserved = 0 },
