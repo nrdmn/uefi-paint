@@ -44,20 +44,16 @@ pub fn main() void {
         _ = graphics.blt(&c, GraphicsOutputBltOperation.BltVideoFill, 0, 0, i * graphics.mode.info.horizontal_resolution / 16, 0, graphics.mode.info.horizontal_resolution / 16, graphics.mode.info.vertical_resolution / 16, 0);
     }
 
-    while (true) {
-        // If pointer state has changed
-        if (pointer.getState(&pointer_state) == 0) {
-            // If the color picker has been touched
-            if (graphics.mode.info.vertical_resolution * pointer_state.current_y / (pointer.mode.absolute_max_y - pointer.mode.absolute_min_y) < graphics.mode.info.vertical_resolution / 16) {
-                // Set selected color
-                selected = @intCast(u8, 16 * pointer_state.current_x / (pointer.mode.absolute_max_x - pointer.mode.absolute_min_x + 1));
-            } else if (graphics.mode.info.horizontal_resolution * pointer_state.current_x / (pointer.mode.absolute_max_x - pointer.mode.absolute_min_x) >= 2 and graphics.mode.info.horizontal_resolution * pointer_state.current_x / (pointer.mode.absolute_max_x - pointer.mode.absolute_min_x) < graphics.mode.info.horizontal_resolution - 2 and graphics.mode.info.vertical_resolution * pointer_state.current_y / (pointer.mode.absolute_max_y - pointer.mode.absolute_min_y) < graphics.mode.info.vertical_resolution - 2) {
-                // Else draw
-                var c = [1]GraphicsOutputBltPixel{colors[selected]};
-                _ = graphics.blt(&c, GraphicsOutputBltOperation.BltVideoFill, 0, 0, graphics.mode.info.horizontal_resolution * pointer_state.current_x / (pointer.mode.absolute_max_x - pointer.mode.absolute_min_x) - 2, graphics.mode.info.vertical_resolution * pointer_state.current_y / (pointer.mode.absolute_max_y - pointer.mode.absolute_min_y) - 2, 5, 5, 0);
-            }
+    var index: usize = undefined;
+    while (boot_services.waitForEvent(1, @ptrCast([*]uefi.Event, &pointer.wait_for_input), &index) == 0) {
+        _ = pointer.getState(&pointer_state);
+        if (graphics.mode.info.vertical_resolution * pointer_state.current_y / (pointer.mode.absolute_max_y - pointer.mode.absolute_min_y) < graphics.mode.info.vertical_resolution / 16) {
+            // If the color picker has been touched, set selected color
+            selected = @intCast(u8, 16 * pointer_state.current_x / (pointer.mode.absolute_max_x - pointer.mode.absolute_min_x + 1));
+        } else if (graphics.mode.info.horizontal_resolution * pointer_state.current_x / (pointer.mode.absolute_max_x - pointer.mode.absolute_min_x) >= 2 and graphics.mode.info.horizontal_resolution * pointer_state.current_x / (pointer.mode.absolute_max_x - pointer.mode.absolute_min_x) < graphics.mode.info.horizontal_resolution - 2 and graphics.mode.info.vertical_resolution * pointer_state.current_y / (pointer.mode.absolute_max_y - pointer.mode.absolute_min_y) < graphics.mode.info.vertical_resolution - 2) {
+            // Else if touch was at least 2 pixels into the drawing area, draw
+            var c = [1]GraphicsOutputBltPixel{colors[selected]};
+            _ = graphics.blt(&c, GraphicsOutputBltOperation.BltVideoFill, 0, 0, graphics.mode.info.horizontal_resolution * pointer_state.current_x / (pointer.mode.absolute_max_x - pointer.mode.absolute_min_x) - 2, graphics.mode.info.vertical_resolution * pointer_state.current_y / (pointer.mode.absolute_max_y - pointer.mode.absolute_min_y) - 2, 5, 5, 0);
         }
-        // wait 10 ms
-        _ = boot_services.stall(10 * 1000);
     }
 }
