@@ -12,22 +12,22 @@ pub fn main() void {
     var pointer_state = AbsolutePointerState{};
     var selected: u4 = 0;
     const colors = [16]GraphicsOutputBltPixel{
-        GraphicsOutputBltPixel{ .blue = 0x00, .green = 0x00, .red = 0x00, .reserved = 0 },
-        GraphicsOutputBltPixel{ .blue = 0xaa, .green = 0x00, .red = 0x00, .reserved = 0 },
-        GraphicsOutputBltPixel{ .blue = 0x00, .green = 0xaa, .red = 0x00, .reserved = 0 },
-        GraphicsOutputBltPixel{ .blue = 0xaa, .green = 0xaa, .red = 0x00, .reserved = 0 },
-        GraphicsOutputBltPixel{ .blue = 0x00, .green = 0x00, .red = 0xaa, .reserved = 0 },
-        GraphicsOutputBltPixel{ .blue = 0xaa, .green = 0x00, .red = 0xaa, .reserved = 0 },
-        GraphicsOutputBltPixel{ .blue = 0x00, .green = 0x55, .red = 0xaa, .reserved = 0 },
-        GraphicsOutputBltPixel{ .blue = 0xaa, .green = 0xaa, .red = 0xaa, .reserved = 0 },
-        GraphicsOutputBltPixel{ .blue = 0x55, .green = 0x55, .red = 0x55, .reserved = 0 },
-        GraphicsOutputBltPixel{ .blue = 0xff, .green = 0x55, .red = 0x55, .reserved = 0 },
-        GraphicsOutputBltPixel{ .blue = 0x55, .green = 0xff, .red = 0x55, .reserved = 0 },
-        GraphicsOutputBltPixel{ .blue = 0xff, .green = 0xff, .red = 0x55, .reserved = 0 },
-        GraphicsOutputBltPixel{ .blue = 0x55, .green = 0x55, .red = 0xff, .reserved = 0 },
-        GraphicsOutputBltPixel{ .blue = 0xff, .green = 0x55, .red = 0xff, .reserved = 0 },
-        GraphicsOutputBltPixel{ .blue = 0x55, .green = 0xff, .red = 0xff, .reserved = 0 },
-        GraphicsOutputBltPixel{ .blue = 0xff, .green = 0xff, .red = 0xff, .reserved = 0 },
+        GraphicsOutputBltPixel{ .blue = 0x00, .green = 0x00, .red = 0x00, .reserved = 0 }, // black
+        GraphicsOutputBltPixel{ .blue = 0xaa, .green = 0x00, .red = 0x00, .reserved = 0 }, // blue
+        GraphicsOutputBltPixel{ .blue = 0x00, .green = 0xaa, .red = 0x00, .reserved = 0 }, // green
+        GraphicsOutputBltPixel{ .blue = 0xaa, .green = 0xaa, .red = 0x00, .reserved = 0 }, // cyan
+        GraphicsOutputBltPixel{ .blue = 0x00, .green = 0x00, .red = 0xaa, .reserved = 0 }, // red
+        GraphicsOutputBltPixel{ .blue = 0xaa, .green = 0x00, .red = 0xaa, .reserved = 0 }, // magenta
+        GraphicsOutputBltPixel{ .blue = 0x00, .green = 0x55, .red = 0xaa, .reserved = 0 }, // brown
+        GraphicsOutputBltPixel{ .blue = 0xaa, .green = 0xaa, .red = 0xaa, .reserved = 0 }, // gray
+        GraphicsOutputBltPixel{ .blue = 0x55, .green = 0x55, .red = 0x55, .reserved = 0 }, // dark gray
+        GraphicsOutputBltPixel{ .blue = 0xff, .green = 0x55, .red = 0x55, .reserved = 0 }, // bright blue
+        GraphicsOutputBltPixel{ .blue = 0x55, .green = 0xff, .red = 0x55, .reserved = 0 }, // bright green
+        GraphicsOutputBltPixel{ .blue = 0xff, .green = 0xff, .red = 0x55, .reserved = 0 }, // bright cyan
+        GraphicsOutputBltPixel{ .blue = 0x55, .green = 0x55, .red = 0xff, .reserved = 0 }, // bright red
+        GraphicsOutputBltPixel{ .blue = 0xff, .green = 0x55, .red = 0xff, .reserved = 0 }, // bright magenta
+        GraphicsOutputBltPixel{ .blue = 0x55, .green = 0xff, .red = 0xff, .reserved = 0 }, // yellow
+        GraphicsOutputBltPixel{ .blue = 0xff, .green = 0xff, .red = 0xff, .reserved = 0 }, // white
     };
 
     // Disable watchdog
