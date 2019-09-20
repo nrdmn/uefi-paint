@@ -10,7 +10,7 @@ pub fn build(b: *Builder) void {
         .Cross = CrossTarget{
             .arch = builtin.Arch.x86_64,
             .os = builtin.Os.uefi,
-            .abi = builtin.Abi.none,
+            .abi = builtin.Abi.msvc,
         },
     });
     exe.setOutputDir("EFI/Boot");
